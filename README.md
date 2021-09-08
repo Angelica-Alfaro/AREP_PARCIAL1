@@ -15,6 +15,6 @@ Construcción de un servidor web usando solo Java y librerías para manejo de la
 - GitHub
 - Heroku
 
-#### 🚀 Despliegue en Heroku (Cliente Java):  [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://api-weather-parcial.herokuapp.com/)
+#### 🚀 Despliegue en Heroku:  [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://api-weather-parcial.herokuapp.com/)
 
 
