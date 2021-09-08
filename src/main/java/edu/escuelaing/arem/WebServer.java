@@ -104,7 +104,7 @@ public class WebServer {
 	    private void getClima(URI resourceURI, PrintWriter out, OutputStream outputStream, String uriStr) throws IOException {
 	    	String outputLine;
 			String path = resourceURI.getPath();
-			System.out.println("uriStr:" + uriStr);
+			//System.out.println("uriStr:" + uriStr);
 			if (path != null) {
 				if (uriStr.contains("/clima?lugar=")) {
 					String[] query = uriStr.split("\\?lugar=");
