@@ -93,7 +93,6 @@ public class WebServer {
 		}
 		
 		
-		
 		/**
 	     * This method lets you read a text or image type resource
 	     * @param resourceURI - Path of the required resource
@@ -105,8 +104,9 @@ public class WebServer {
 	    private void getClima(URI resourceURI, PrintWriter out, OutputStream outputStream, String uriStr) throws IOException {
 	    	String outputLine;
 			String path = resourceURI.getPath();
+			System.out.println("uriStr:" + uriStr);
 			if (path != null) {
-				if (path.equals("/clima")) {
+				if (uriStr.contains("/clima?lugar=")) {
 					String[] query = uriStr.split("\\?lugar=");
 					if (query[1] != null) {
 						outputLine = HttpConnection.getClima(query[1]);
@@ -116,12 +116,34 @@ public class WebServer {
 					}
 					out.println(outputLine);
 				}
-				else {
-					outputLine = "NOT FOUND";
-					out.println(outputLine);
-					
+				else if (uriStr.equals("/clima")){
+					out.println(defaultResponse());
 				}
 			}
-	    }
+			else {
+				outputLine = "NOT FOUND";
+				out.println(outputLine);
+				}
+			}
 	    
+	    /**
+		 * Default page when not finding a resource
+		 * @return the default html page
+		 */
+		public String defaultResponse() {
+			String outputLine = "HTTP/1.1 200 OK\r\n" 
+								+ "Content-Type: text/html\r\n"
+								+ "\r\n" 
+								+ "<!DOCTYPE html>\n"
+								+ "  <html>\n"
+								+ "    <head>\n" 
+								+ "      <meta charset=\"UTF-8\">\n"
+								+ "      <title>Home page</title>\n" 
+								+ "    </head>\n" 
+								+ "    <body>\n"
+								+ "      <img src=\"https://www.lagabogados.com/wp-content/uploads/2020/01/EN-CONSTRUCCION.jpg\"> "
+								+ "    </body>\n" 
+								+ "  </html>\n";
+			return outputLine;
+		}
 }
