@@ -116,7 +116,7 @@ public class WebServer {
 					}
 					out.println(outputLine);
 				}
-				else if (uriStr.equals("/clima")){
+				else if (uriStr.equals("/clima") || uriStr.equals("/")){
 					out.println(defaultResponse());
 				}
 			}
