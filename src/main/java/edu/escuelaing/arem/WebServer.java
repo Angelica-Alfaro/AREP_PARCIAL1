@@ -102,18 +102,21 @@ public class WebServer {
 	     * @throws IOException
 	     */
 	    private void getClima(URI resourceURI, PrintWriter out, OutputStream outputStream, String uriStr) throws IOException {
-	    	String outputLine;
+	    	String outputLine, response;
 			String path = resourceURI.getPath();
-			//System.out.println("uriStr:" + uriStr);
 			if (path != null) {
-				if (uriStr.contains("/clima?lugar=")) {
+				if (uriStr.contains("/consulta?lugar=")) {
 					String[] query = uriStr.split("\\?lugar=");
 					if (query[1] != null) {
-						outputLine = HttpConnection.getClima(query[1]);
+						System.out.println(query[1]);
+						response = HttpConnection.getClima(query[1]);
+						System.out.println(query[1]);
+						
 					}
 					else {
-						outputLine = HttpConnection.getClima("London");
+						response = HttpConnection.getClima("London");
 					}
+					outputLine = pageClima(response);
 					out.println(outputLine);
 				}
 				else if (uriStr.equals("/clima") || uriStr.equals("/")){
@@ -126,7 +129,30 @@ public class WebServer {
 				}
 			}
 	    
-	    /**
+		/**
+		 * Default page when not finding a resource
+		 * @return the default html page
+		 */
+	    private String pageClima(String response) {
+	    	String outputLine = "HTTP/1.1 200 OK\r\n" 
+					+ "Content-Type: text/html\r\n"
+					+ "\r\n" 
+					+ "<!DOCTYPE html>\n"
+					+ "  <html>\n"
+					+ "    <head>\n" 
+					+ "      <meta charset=\"UTF-8\">\n"
+					+ "      <title>Home page</title>\n" 
+					+ "    </head>\n" 
+					+ "    <body>\n"
+					+       response
+					+ "    </body>\n" 
+					+ "  </html>\n";
+	    	return outputLine;
+
+	    	
+		}
+
+		/**
 		 * Default page when not finding a resource
 		 * @return the default html page
 		 */
