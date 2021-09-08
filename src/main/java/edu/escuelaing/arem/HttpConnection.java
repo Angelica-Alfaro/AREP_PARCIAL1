@@ -13,9 +13,9 @@ public class HttpConnection {
     public HttpConnection(){
     }
 
-	public static String getClima() throws IOException {
+	public static String getClima(String ciudad) throws IOException {
     	String finalResponse = "None";
-        URL obj = new URL("https://api.openweathermap.org/data/2.5/weather?q=London&appid=e6d589177c6d5fbf9467ccb98fab7dfb");
+        URL obj = new URL("https://api.openweathermap.org/data/2.5/weather?q=" + ciudad + "&appid=e6d589177c6d5fbf9467ccb98fab7dfb");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);

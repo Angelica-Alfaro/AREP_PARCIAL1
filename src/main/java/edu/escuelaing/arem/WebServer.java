@@ -83,7 +83,7 @@ public class WebServer {
 			if ((stringRequest != null) && (stringRequest.length() != 0)) {
 				String[] request = stringRequest.split(" ");
 				String uriStr = request[1];
-				System.out.println("uriStr:" + uriStr);
+				//System.out.println("uriStr:" + uriStr);
 				URI resourceURI = new URI(uriStr);
 				getClima(resourceURI, out, clientSocket.getOutputStream(), uriStr);
 			}
@@ -91,6 +91,8 @@ public class WebServer {
 			in.close();
 			clientSocket.close();
 		}
+		
+		
 		
 		/**
 	     * This method lets you read a text or image type resource
@@ -102,10 +104,16 @@ public class WebServer {
 	     */
 	    private void getClima(URI resourceURI, PrintWriter out, OutputStream outputStream, String uriStr) throws IOException {
 	    	String outputLine;
-			String mimeType = resourceURI.getPath();
-			if (mimeType != null) {
-				if (mimeType.equals("/clima")) {
-					outputLine = HttpConnection.getClima();
+			String path = resourceURI.getPath();
+			if (path != null) {
+				if (path.equals("/clima")) {
+					String[] query = uriStr.split("\\?lugar=");
+					if (query[1] != null) {
+						outputLine = HttpConnection.getClima(query[1]);
+					}
+					else {
+						outputLine = HttpConnection.getClima("London");
+					}
 					out.println(outputLine);
 				}
 				else {
@@ -115,4 +123,5 @@ public class WebServer {
 				}
 			}
 	    }
+	    
 }
